@@ -230,7 +230,7 @@ Perfect! Now the README starts with a clear, concise description of what the pro
 
 ##  Нужно брать файл с именем -- Alchimick-1.2-ru.html
 
-## Запуск -- просто запустите Alchimick-1.2-en.html в любом браузере.
+## Запуск -- просто запустите Alchimick-1.2-ru.html в любом браузере.
 
 -----------
 
