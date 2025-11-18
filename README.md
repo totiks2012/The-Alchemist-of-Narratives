@@ -27,7 +27,7 @@ A program for writers, poets, and anyone who works deeply with text.
 - ❌ **Непредсказуемое поведение** - теперь логика стабильна
 - ❌ **Сломанный режим интервью** - теперь работает идеально
 
-- Нужно брать файл с именем -- Alchimick-1.2-ru.html
+##  Нужно брать файл с именем -- Alchimick-1.2-ru.html
 
 -----------
 
