@@ -3,6 +3,207 @@ A program for writers, poets, and anyone who works deeply with text.
 
 # Нарративный Алхимик 🎭✨
 
+# Чуть ниже английской версии Readmy на руском языке 
+
+# This is the English version of README 
+
+---
+
+# Narrative Alchemist 🧪✨
+
+**A powerful creative tool for writers, storytellers, and world-builders to generate unique narrative concepts through genre fusion and structured frameworks.**
+
+## 🚀 Quick Start
+
+### What is this project?
+Narrative Alchemist is a browser-based creative assistant that helps you develop complex story concepts, characters, and worlds. It combines genre hybridization, philosophical paradoxes, and structured narrative frameworks to spark unique creative ideas.
+
+### Installation & Launch
+1. **Download** `Alchimick-1.2-en.html` from this repository
+2. **Open** the file in any modern web browser (Chrome, Firefox, Safari, Edge)
+3. **Start creating** - no additional installation required!
+
+### Basic Usage Guide
+1. **Set your theme** in the main input field
+2. **Choose elements** by uncommenting lines (remove `#`) in preset sections
+3. **Build framework** using interview mode or direct input
+4. **Collect & copy** your generated prompt to use with AI assistants
+
+---
+
+## 🧠 Project Philosophy
+
+**This is NOT a replacement for the creator, but their amplifier.**
+The tool is designed for symbiosis with the author, not for automating creativity. It helps structure ideas, find non-obvious connections, and deepen concepts, but the final creative decision always remains with you.
+
+---
+
+## 🚀 How to Work with the Tool
+
+### 📝 Basic Work Cycle
+
+#### 1. 🎯 Initial Setup
+- Enter your theme in the "Set Theme" field
+- **Uncomment the needed lines** (remove `#`) in sections:
+  - Genre Hybrids
+  - Key Queries
+  - Actions-Exceptions
+  - References
+
+#### 2. 🧊 Creating 3D-Framework through Interview
+- **Check the "Interview mode" box** in the 3D-Framework section
+- Click "Collect" - get the prompt for AI
+- Send the prompt to the neural network to conduct the interview
+- Go through all interview stages, filling out the framework
+
+#### 3. 🔄 Deepening the Concept
+- **Insert the received 3D-framework** into the cleared 3D-framework field
+- **Uncheck the interview box**
+- **Clear the main output**
+- **Click "Collect" again**
+- Use the new prompt for generating in-depth text
+
+### 💡 Element Selection Example
+
+```bash
+# WAS (inactive):
+# "Cyberpunk" + "Noir"
+# "A hero who defeats madness by embracing it"
+
+# BECAME (active):
+"Cyberpunk" + "Noir"
+"A hero who defeats madness by embracing it"
+
+```
+🛠️ Key Features
+
+📝 Intelligent Presets
+
+    50+ genre hybrids - remove # to activate
+
+    30+ narrative paradoxes - uncomment lines
+
+    Reference library - from classics to avant-garde
+
+🧊 3D-Narrative Framework
+
+Deep structure for development:
+
+    Hero's Creed vs Anti-Creed
+
+    Key Question - central conflict
+
+    Locations with physical impact and temptations
+
+    Antagonist's Truth and their weakness
+
+🤖 Two Operation Modes
+
+    Interview 🎙️ - AI helps build the framework (checkbox ON)
+
+    Generation 🚀 - creating final prompt (checkbox OFF)
+
+🔄 Complete Work Cycle
+Phase 1: Preparation
+
+    Set theme and select elements (remove #)
+
+    Enable interview mode (check the box)
+
+    Get prompt for AI
+
+Phase 2: Interview
+
+    Go through interview with AI, filling 3D-framework
+
+    Receive ready structured framework
+
+Phase 3: Deepening
+
+    Insert framework into 3D-framework field
+
+    Disable interview mode (uncheck box)
+
+    Clear output and click "Collect"
+
+    Use final prompt for detailed generation
+
+🎯 Who is this tool for?
+✍️ Writers and Screenwriters
+
+    Overcoming creative blocks
+
+    Deep character and conflict development
+
+    Finding original narrative moves
+
+🎮 Game and World Creators
+
+    Building consistent universes
+
+    Creating multifaceted characters
+
+    Developing ethical dilemmas and choices
+
+🧠 Creative Researchers
+
+    Experiments with genre mixing
+
+    Studying narrative structures
+
+    Searching for new storytelling forms
+
+💫 What makes this tool special?
+Symbiosis, Not Automation
+
+    You remain the creator - the tool only provides structure
+
+    Flexible workflow - from quick ideas to deep development
+
+    Intuitive interaction - natural dialogue with your own ideas
+
+Depth Instead of Complexity
+
+    Simple but powerful structures
+
+    Focus on conflicts and transformations
+
+    Consideration of cultural and artistic context
+
+🎭 Creation Story
+
+This project was born in the fire of creative agony 🔥
+
+The author went through sleepless nights, architecture rewrites, and moments when the interface seemed like a personal enemy. But it was in these points of despair that the most elegant solutions were born.
+
+The tool is hard-won - every feature tested in practice, every preset passed through the crucible of real use.
+
+Such is the price of creating a tool for creators - you must go through all the creative circles of hell yourself to understand what really works. ✨
+📄 License
+
+GNU GPL v3.0 - free use, study, and modification
+🔧 Technical Details
+
+    Single HTML file - no dependencies, no installation
+
+    Works offline - once downloaded, no internet required
+
+    Browser-based - compatible with all modern browsers
+
+    Local storage - your work saves automatically in browser
+
+Remember: you are the creator. This tool is just a brush in your hands.
+Create boldly, deepen fearlessly, create as no one before you dared. 🎭✨
+text
+
+
+Perfect! Now the README starts with a clear, concise description of what the project is and what it does, making it immediately understandable for new visitors. The rest maintains the beautiful philosophical tone and detailed instructions. 🎯✨
+
+----
+
+# Readmy для проекта Narrative Alchemist 🧪✨ на РУССКОМ ЯЗЫКЕ
+---------------------------------------------------------------
+
 ![Narrative Alchemist](https://img.shields.io/badge/Нарративный-Алхимик-9b59b6?style=for-the-badge)
 ![Version](https://img.shields.io/badge/версия-1.0-3498db?style=for-the-badge)
 ![License](https://img.shields.io/badge/license-GPL%203.0-e74c3c?style=for-the-badge)
@@ -13,7 +214,7 @@ A program for writers, poets, and anyone who works deeply with text.
 ## 🚨 **ВАЖНОЕ ОБНОВЛЕНИЕ - КРИТИЧЕСКИЕ ИСПРАВЛЕНИЯ** 🚨
 
 ### ⚠️ **ПРЕДУПРЕЖДЕНИЕ О ПРЕДЫДУЩЕЙ ВЕРСИИ**
-**Ранее опубликованная версия содержала критические баги в логике парсинга комментариев - ТЕПЕРЬ ПОЛНОСТЬЮ ИСПРАВЛЕНО!**
+**Ранее опубликованная версия Alchimick-1.01.html содержала критические баги в логике парсинга комментариев - ТЕПЕРЬ ПОЛНОСТЬЮ ИСПРАВЛЕНО!**
 
 ### 🔧 **Что было исправлено:**
 - ✅ **Правильная фильтрация комментариев** - В вывод попадают ТОЛЬКО раскомментированные строки
@@ -28,6 +229,8 @@ A program for writers, poets, and anyone who works deeply with text.
 - ❌ **Сломанный режим интервью** - теперь работает идеально
 
 ##  Нужно брать файл с именем -- Alchimick-1.2-ru.html
+
+## Запуск -- просто запустите Alchimick-1.2-en.html в любом браузере.
 
 -----------
 
@@ -65,7 +268,7 @@ A program for writers, poets, and anyone who works deeply with text.
 
 ### 💡 Пример выбора элементов
 
-```bash
+```
 # БЫЛО (неактивно):
 # "Киберпанк" + "Нуар"
 # "Герой, побеждающий безумие, принимая его"
@@ -73,6 +276,7 @@ A program for writers, poets, and anyone who works deeply with text.
 # СТАЛО (активно):
 "Киберпанк" + "Нуар"
 "Герой, побеждающий безумие, принимая его"
+
 ```
 
 ---
