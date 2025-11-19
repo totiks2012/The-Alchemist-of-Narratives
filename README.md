@@ -5,9 +5,9 @@ A program for writers, poets, and anyone who works deeply with text.
 
 # Чуть ниже английской версии Readmy на руском языке 
 
-# Внимание версию Alchimick-1.01.html НЕ БРАТЬ она имеет несколько багов, берите Alchimick-1.2.html
+# Внимание версию Alchimick-1.01.html НЕ БРАТЬ она имеет несколько багов, берите Alchimick-1.2-ru.html
 
-# Attention version Alchimick-1.01.html DO NOT TAKE it has several bugs, take Alchimick-1.2.html
+# Attention version Alchimick-1.01.html DO NOT TAKE it has several bugs, take Alchimick-1.2-en.html
 
 # This is the English version of README 
 
