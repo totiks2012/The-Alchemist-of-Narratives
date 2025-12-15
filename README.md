@@ -14,7 +14,7 @@ A program for writers, poets, and anyone who works deeply with text.
 
 # Внимание версию
 
-Alchimick-1.01.html и  Alchimick-1.2-ru.html    НЕ БРАТЬ она имеет несколько багов, берите Alchimick-1.4-ru.html
+# Alchimick-1.01.html и  Alchimick-1.2-ru.html    НЕ БРАТЬ она имеет несколько багов, берите Alchimick-1.4-ru.html
 
 # Attention version Alchimick-1.01.html DO NOT TAKE it has several bugs, take Alchimick-1.2-en.html
 
