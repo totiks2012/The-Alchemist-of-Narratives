@@ -16,7 +16,7 @@ A program for writers, poets, and anyone who works deeply with text.
 
 # Alchimick-1.01.html и  Alchimick-1.2-ru.html    НЕ БРАТЬ она имеет несколько багов, берите Alchimick-1.4-ru.html
 
-# Attention version Alchimick-1.01.html DO NOT TAKE it has several bugs, take Alchimick-1.2-en.html
+# Attention version Alchimick-1.01.html and Alchimick-1.2-en.html DO NOT TAKE it has several bugs, take Alchimick-1.4-en.html
 
 # This is the English version of README 
 
@@ -32,7 +32,7 @@ A program for writers, poets, and anyone who works deeply with text.
 Narrative Alchemist is a browser-based creative assistant that helps you develop complex story concepts, characters, and worlds. It combines genre hybridization, philosophical paradoxes, and structured narrative frameworks to spark unique creative ideas.
 
 ### Installation & Launch
-1. **Download** `Alchimick-1.2-en.html` from this repository
+1. **Download** `Alchimick-1.4-en.html` from this repository
 2. **Open** the file in any modern web browser (Chrome, Firefox, Safari, Edge)
 3. **Start creating** - no additional installation required!
 
