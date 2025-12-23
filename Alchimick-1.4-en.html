@@ -1,0 +1,1840 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Narrative Alchemist</title>
+    <style>
+        :root {
+            --bg-primary: #1a1a1a;
+            --bg-secondary: #2d2d2d;
+            --bg-tertiary: #3d3d3d;
+            --text-primary: #ffffff;
+            --text-secondary: #b0b0b0;
+            --accent-primary: #9b59b6;
+            --accent-primary-hover: #8e44ad;
+            --accent-secondary: #3498db;
+            --accent-secondary-hover: #2980b9;
+            --accent-success: #27ae60;
+            --accent-success-hover: #219a52;
+            --accent-warning: #e67e22;
+            --accent-warning-hover: #d35400;
+            --accent-danger: #e74c3c;
+            --accent-danger-hover: #c0392b;
+            --accent-info: #1abc9c;
+            --accent-info-hover: #16a085;
+            --accent-dimensional: #e74c3c;
+            --accent-dimensional-hover: #c0392b;
+            --border-color: #404040;
+            --shadow: 0 20px 40px rgba(0,0,0,0.3);
+        }
+
+        [data-theme="light"] {
+            --bg-primary: #ffffff;
+            --bg-secondary: #f8f9fa;
+            --bg-tertiary: #e9ecef;
+            --text-primary: #2c3e50;
+            --text-secondary: #495057;
+            --accent-primary: #9b59b6;
+            --accent-primary-hover: #8e44ad;
+            --accent-secondary: #3498db;
+            --accent-secondary-hover: #2980b9;
+            --accent-success: #27ae60;
+            --accent-success-hover: #219a52;
+            --accent-warning: #e67e22;
+            --accent-warning-hover: #d35400;
+            --accent-danger: #e74c3c;
+            --accent-danger-hover: #c0392b;
+            --accent-info: #1abc9c;
+            --accent-info-hover: #16a085;
+            --accent-dimensional: #e74c3c;
+            --accent-dimensional-hover: #c0392b;
+            --border-color: #bdc3c7;
+            --shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+            transition: background 0.3s ease;
+        }
+
+        [data-theme="light"] body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: var(--bg-primary);
+            border-radius: 15px;
+            box-shadow: var(--shadow);
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .toolbar {
+            background: var(--bg-secondary);
+            padding: 15px 20px;
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            flex-wrap: wrap;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .theme-toggle {
+            margin-left: auto;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--text-primary);
+            font-size: 14px;
+            cursor: pointer;
+        }
+
+        .theme-toggle input {
+            display: none;
+        }
+
+        .toggle-slider {
+            width: 50px;
+            height: 24px;
+            background: var(--bg-tertiary);
+            border-radius: 12px;
+            position: relative;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .toggle-slider::before {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background: var(--accent-primary);
+            border-radius: 50%;
+            top: 2px;
+            left: 2px;
+            transition: transform 0.3s ease;
+        }
+
+        .theme-toggle input:checked + .toggle-slider::before {
+            transform: translateX(26px);
+        }
+
+        .toolbar-btn {
+            background: var(--accent-secondary);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .toolbar-btn:hover {
+            background: var(--accent-secondary-hover);
+            transform: translateY(-2px);
+        }
+
+        .toolbar-btn:active {
+            transform: translateY(0);
+        }
+
+        .toolbar-btn.genre {
+            background: var(--accent-primary);
+        }
+
+        .toolbar-btn.genre:hover {
+            background: var(--accent-primary-hover);
+        }
+
+        .toolbar-btn.query {
+            background: var(--accent-success);
+        }
+
+        .toolbar-btn.query:hover {
+            background: var(--accent-success-hover);
+        }
+
+        .toolbar-btn.actions {
+            background: var(--accent-info);
+        }
+
+        .toolbar-btn.actions:hover {
+            background: var(--accent-info-hover);
+        }
+
+        .toolbar-btn.references {
+            background: var(--accent-warning);
+        }
+
+        .toolbar-btn.references:hover {
+            background: var(--accent-warning-hover);
+        }
+
+        .toolbar-btn.dimensional {
+            background: var(--accent-dimensional);
+        }
+
+        .toolbar-btn.dimensional:hover {
+            background: var(--accent-dimensional-hover);
+        }
+
+        .toolbar-btn.import {
+            background: var(--accent-success);
+        }
+
+        .toolbar-btn.import:hover {
+            background: var(--accent-success-hover);
+        }
+
+        .toolbar-btn.export {
+            background: var(--accent-warning);
+        }
+
+        .toolbar-btn.export:hover {
+            background: var(--accent-warning-hover);
+        }
+
+        .toolbar-btn.collect {
+            background: var(--accent-primary);
+        }
+
+        .toolbar-btn.collect:hover {
+            background: var(--accent-primary-hover);
+        }
+
+        .toolbar-btn.clear {
+            background: var(--accent-danger);
+        }
+
+        .toolbar-btn.clear:hover {
+            background: var(--accent-danger-hover);
+        }
+
+        .input-section {
+            padding: 0;
+            max-height: 0;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .input-section.active {
+            padding: 20px;
+            max-height: 300px;
+        }
+
+        .genre-section, .query-section, .actions-section, .references-section, .dimensional-section {
+            padding: 0;
+            max-height: 0;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            background: var(--bg-tertiary);
+        }
+
+        .genre-section.active, .query-section.active, .actions-section.active, .references-section.active, .dimensional-section.active {
+            padding: 20px;
+            max-height: 500px;
+        }
+
+        .preset-content {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 15px;
+            font-family: 'Courier New', monospace;
+            font-size: 13px;
+            line-height: 1.4;
+            color: var(--text-primary);
+            max-height: 350px;
+            overflow-y: auto;
+            white-space: pre-wrap;
+            resize: vertical;
+            min-height: 200px;
+            width: 100%;
+        }
+
+        .preset-content:focus {
+            outline: none;
+            border-color: var(--accent-secondary);
+        }
+
+        .preset-comment {
+            color: #666;
+            font-style: italic;
+        }
+
+        .input-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .input-action-btn {
+            background: var(--bg-tertiary);
+            color: var(--text-primary);
+            border: none;
+            padding: 8px 15px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 12px;
+            transition: background 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .input-action-btn:hover {
+            background: var(--border-color);
+        }
+
+        .input-action-btn.clear-input {
+            background: var(--accent-danger);
+            color: white;
+        }
+
+        .input-action-btn.clear-input:hover {
+            background: var(--accent-danger-hover);
+        }
+
+        .theme-input {
+            width: 100%;
+            min-height: 120px;
+            padding: 15px;
+            border: 2px solid var(--border-color);
+            border-radius: 8px;
+            font-size: 14px;
+            line-height: 1.5;
+            resize: vertical;
+            font-family: inherit;
+            background: var(--bg-secondary);
+            color: var(--text-primary);
+            transition: all 0.3s ease;
+        }
+
+        .theme-input:focus {
+            outline: none;
+            border-color: var(--accent-secondary);
+        }
+
+        .theme-input::placeholder {
+            color: var(--text-secondary);
+        }
+
+        .output-section {
+            padding: 20px;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .output-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .output-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .output-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .output-action-btn {
+            background: var(--bg-tertiary);
+            color: var(--text-primary);
+            border: none;
+            padding: 8px 15px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 12px;
+            transition: background 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .output-action-btn:hover {
+            background: var(--border-color);
+        }
+
+        .output-action-btn.clear-output {
+            background: var(--accent-danger);
+            color: white;
+        }
+
+        .output-action-btn.clear-output:hover {
+            background: var(--accent-danger-hover);
+        }
+
+        .output-content {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 20px;
+            min-height: 200px;
+            font-size: 14px;
+            line-height: 1.6;
+            white-space: pre-wrap;
+            color: var(--text-primary);
+            transition: all 0.3s ease;
+        }
+
+        .status-message {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: var(--accent-success);
+            color: white;
+            padding: 12px 20px;
+            border-radius: 8px;
+            box-shadow: var(--shadow);
+            transform: translateX(400px);
+            transition: transform 0.3s ease;
+            z-index: 1000;
+        }
+
+        .status-message.show {
+            transform: translateX(0);
+        }
+
+        .status-message.error {
+            background: var(--accent-danger);
+        }
+
+        .interview-toggle {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 15px;
+            padding: 10px;
+            background: var(--bg-secondary);
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+        }
+
+        .interview-toggle label {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+            font-size: 14px;
+            color: var(--text-primary);
+        }
+
+        .interview-toggle input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            cursor: pointer;
+        }
+
+        .interview-mode {
+            background: var(--accent-info);
+            color: white;
+            padding: 5px 10px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        /* Import modal styles */
+        .import-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 2000;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+
+        .import-modal.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .import-modal-content {
+            background: var(--bg-primary);
+            border-radius: 10px;
+            padding: 20px;
+            max-width: 500px;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+            box-shadow: var(--shadow);
+        }
+
+        .import-modal-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: var(--text-primary);
+            text-align: center;
+        }
+
+        .import-options {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .import-option {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px;
+            background: var(--bg-secondary);
+            border-radius: 6px;
+            border: 1px solid var(--border-color);
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .import-option:hover {
+            background: var(--bg-tertiary);
+        }
+
+        .import-option input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            cursor: pointer;
+        }
+
+        .import-option label {
+            flex: 1;
+            cursor: pointer;
+            color: var(--text-primary);
+        }
+
+        .import-modal-actions {
+            display: flex;
+            gap: 10px;
+            justify-content: flex-end;
+        }
+
+        .import-modal-btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .import-modal-btn.confirm {
+            background: var(--accent-success);
+            color: white;
+        }
+
+        .import-modal-btn.confirm:hover {
+            background: var(--accent-success-hover);
+        }
+
+        .import-modal-btn.cancel {
+            background: var(--accent-danger);
+            color: white;
+        }
+
+        .import-modal-btn.cancel:hover {
+            background: var(--accent-danger-hover);
+        }
+
+        @media (max-width: 768px) {
+            .toolbar {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .toolbar-btn {
+                justify-content: center;
+            }
+
+            .theme-toggle {
+                margin-left: 0;
+                justify-content: center;
+            }
+
+            .input-actions,
+            .output-actions {
+                flex-direction: column;
+            }
+
+            body {
+                padding: 10px;
+            }
+
+            .import-modal-content {
+                width: 95%;
+                padding: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="toolbar">
+            <button class="toolbar-btn" id="setThemeBtn">
+                <span>📝</span>
+                Set Theme
+            </button>
+            <button class="toolbar-btn genre" id="genreBtn">
+                <span>🎭</span>
+                Genre Hybrid
+            </button>
+            <button class="toolbar-btn query" id="queryBtn">
+                <span>⚡</span>
+                Key Query
+            </button>
+            <button class="toolbar-btn actions" id="actionsBtn">
+                <span>🚫</span>
+                Actions-Exceptions
+            </button>
+            <button class="toolbar-btn references" id="referencesBtn">
+                <span>📚</span>
+                References
+            </button>
+            <button class="toolbar-btn dimensional" id="dimensionalBtn">
+                <span>🧊</span>
+                [3D-FRAMEWORK: ON]
+            </button>
+            <button class="toolbar-btn collect" id="collectBtn">
+                <span>🔮</span>
+                Assemble
+            </button>
+            <button class="toolbar-btn export" id="exportBtn">
+                <span>📤</span>
+                Export
+            </button>
+            <button class="toolbar-btn import" id="importBtn">
+                <span>📥</span>
+                Import
+            </button>
+            <button class="toolbar-btn clear" id="clearAllBtn">
+                <span>🗑️</span>
+                Clear All
+            </button>
+
+            <label class="theme-toggle" id="themeToggle">
+                <input type="checkbox" id="themeCheckbox">
+                <span class="toggle-slider"></span>
+                <span>Light Theme</span>
+            </label>
+        </div>
+
+        <div class="input-section" id="inputSection">
+            <textarea
+                class="theme-input"
+                id="themeInput"
+                placeholder="Enter a thematic concept or starting point for the generator..."
+            ></textarea>
+            <div class="input-actions">
+                <button class="input-action-btn clear-input" id="clearInputBtn">
+                    <span>❌</span>
+                    Clear Field
+                </button>
+            </div>
+        </div>
+
+        <div class="genre-section" id="genreSection">
+            <textarea
+                class="preset-content"
+                id="genreContent"
+                placeholder="Uncomment needed lines (remove #) or write your own genre hybrids..."
+            ># ===== GENRE HYBRID PRESETS =====
+# Uncomment needed lines (remove #) to use the preset
+# Or write your own genre combinations!
+# When assembling, the engine will create a unique blend of selected genres
+
+# === CYBERPUNK DIRECTIONS ===
+# "Noir Cyberpunk" + "Social Satire" + "Detective Mystery"
+# "Techno-Thriller" + "Psychological Horror" + "Political Conspiracy"
+# "Romantic Cyberpunk" + "Tragedy" + "Philosophical Parable"
+# "Bio-Punk" + "Ecological Thriller" + "Medical Ethics"
+
+# === FANTASY DIRECTIONS ===
+# "Dark Fantasy" + "Political Intrigue" + "Moral Choice"
+# "Epic Fantasy" + "Existential Crisis" + "Ecological Saga"
+# "Urban Fantasy" + "Crime Drama" + "Family Saga"
+# "Magical Realism" + "Social Drama" + "Mystical Detective"
+
+# === SCIENCE FICTION ===
+# "Space Opera" + "Anthropological Study" + "Lost Civilizations"
+# "Hard Science Fiction" + "Psychological Drama" + "Ethical Dilemma"
+# "Post-Apocalypse" + "Ecological Thriller" + "Humanity's Rebirth"
+# "Transhumanism" + "Philosophical Parable" + "Technological Utopia/Dystopia"
+
+# === MODERN GENRES ===
+# "Psychological Thriller" + "Magical Realism" + "Family Drama"
+# "Historical Drama" + "Mystery" + "Love Story"
+# "Adventure Action" + "Philosophical Parable" + "Existential Horror"
+# "Social Satire" + "Black Comedy" + "Political Allegory"
+
+# === EXPERIMENTAL MIXES ===
+# "Western" + "Cosmic Horror" + "Poetic Recitative"
+# "Retro-Futurism" + "Noir" + "Musical Drama"
+# "Mystical Realism" + "Techno-Fantasy" + "Psychogeography"
+# "Steampunk" + "Victorian Gothic" + "Scientific Romance"
+
+# === AUTHOR PRESETS ===
+# "Solarpunk" + "Utopia" + "Eco-Fiction"
+# "Space Cowboy" + "Existential Ballad" + "Poetic Epic"
+# "Dieselpunk" + "Alternate History" + "War Drama"
+# "Atompunk" + "Cold War" + "Spy Thriller"
+
+# === YOUR OWN HYBRIDS ===
+# Write your own unique genre combinations here!
+# Example: "Poetic Horror" + "Techno-Mysticism" + "Social Fiction"
+
+# === PSYCHOLOGICAL DIRECTIONS ===
+# "Psychological Drama" + "Mystical Thriller" + "Family Saga"
+# "Existential Horror" + "Philosophical Parable" + "Medical Detective"
+# "Therapeutic Noir" + "Traumatic Realism" + "Psychedelic Biopic"
+
+# === UNEXPECTED MIXES ===
+# "Kitchen Realism" + "Space Fiction" + "Poetry of Everyday Life"
+# "Architectural Horror" + "Urban Fairy Tale" + "Social Archaeology"
+# "Biographical Action" + "Historical Detective" + "Scientific Poetry"</textarea>
+            <div class="input-actions">
+                <button class="input-action-btn" id="applyGenreBtn">
+                    <span>✅</span>
+                    Apply Genre Hybrid
+                </button>
+                <button class="input-action-btn clear-input" id="clearGenreBtn">
+                    <span>❌</span>
+                    Clear Genres
+                </button>
+            </div>
+        </div>
+
+        <div class="query-section" id="querySection">
+            <textarea
+                class="preset-content"
+                id="queryContent"
+                placeholder="Uncomment needed lines (remove #) or write your own key queries..."
+            ># ===== KEY QUERY PRESETS =====
+# Uncomment needed lines (remove #) to use the preset
+# Or write your own paradoxes and conflicts!
+# These paradoxes will become the heart of your story
+
+# === EXISTENTIAL PARADOXES ===
+# "A hero who defeats madness by accepting it"
+# "To gain freedom, you must first completely lose control"
+# "True strength is born from acknowledging one's own vulnerability"
+# "The most terrifying monster is one who understands humanity too well"
+
+# === TECHNOLOGICAL DILEMMAS ===
+# "Technology that promises immortality but erases memory"
+# "AI striving to understand love by destroying emotions"
+# "Virtual paradise that slowly consumes the real world"
+# "Genetic perfection leading to spiritual degeneration"
+
+# === SOCIAL CONFLICTS ===
+# "What if the antagonist is morally right?"
+# "A utopia that requires daily small betrayals"
+# "A revolution that devours its children in the name of an ideal"
+# "Progress measured by the number of lost traditions"
+
+# === METAPHYSICAL RIDDLES ===
+# "A god who must die for the universe to continue existing"
+# "Time flowing backward for those who understood its nature"
+# "Dreams that create reality rather than reflect it"
+# "Words that have power only when unspoken"
+
+# === PSYCHOLOGICAL BATTLES ===
+# "Healing through accepting one's illness as part of personality"
+# "Love as a disease that cannot be cured without destroying the feeling"
+# "Memory as a prison you cannot escape without losing yourself"
+# "Identity as a mask that fuses to the face"
+
+# === MORAL DILEMMAS ===
+# "Save one at the cost of millions or let all die for principle"
+# "Knowledge that saves the world but destroys the one who possesses it"
+# "A sacrifice that changes nothing except the one who sacrifices"
+# "A truth more dangerous than any lie"
+
+# === YOUR OWN QUERIES ===
+# Write your own unique paradoxes and conflicts here!
+# Example: "Technology that allows reading thoughts but destroys trust"
+
+# === EVERYDAY PARADOXES ===
+# "Routine that slowly erases personality but provides stability"
+# "Love as a habit that cannot be broken without destroying oneself"
+# "A home that becomes a prison but the only safe place"
+
+# === CREATIVE DILEMMAS ===
+# "An artist who must destroy their best work to create further"
+# "A writer discovering their characters live their own lives"
+# "A musician hearing music no one else can perceive"</textarea>
+            <div class="input-actions">
+                <button class="input-action-btn" id="applyQueryBtn">
+                    <span>✅</span>
+                    Apply Key Query
+                </button>
+                <button class="input-action-btn clear-input" id="clearQueryBtn">
+                    <span>❌</span>
+                    Clear Queries
+                </button>
+            </div>
+        </div>
+
+        <div class="actions-section" id="actionsSection">
+            <textarea
+                class="preset-content"
+                id="actionsContent"
+                placeholder="Uncomment needed lines (remove #) to define actions and exceptions..."
+            ># ===== ACTIONS AND EXCEPTIONS =====
+# Uncomment lines to specify what TO DO and what NOT TO DO
+# These instructions will be passed to the engine as strict guidelines
+
+# === ACTIONS (what to do) ===
+# Use cinematic descriptions through action and dialogue
+# Create multifaceted characters with internal contradictions
+# Develop conflict through subtext and unsaid things
+# Use metaphors reflecting characters' internal states
+# Alternate pacing: slow contemplative scenes and intense actions
+# Create atmosphere through details of the surrounding world
+# Use all five senses in descriptions
+# Show character transformation through their actions
+
+# === EXCEPTIONS (what not to do) ===
+# Avoid direct descriptions of emotions ("he was sad")
+# Don't use clichés and template situations
+# Avoid info-dumping and long exposition
+# Don't break the internal logic of the established world
+# Avoid moralizing and direct evaluations
+# Don't use cheap plot tricks (deus ex machina)
+# Avoid flat, one-dimensional characters
+# Don't overload text with technical or specialized details
+# Avoid predictable endings
+# Don't break the narrative voice and style
+
+# === STYLISTIC PREFERENCES ===
+# Prefer showing over telling (show, don't tell)
+# Use active voice instead of passive
+# Create rhythm through varying sentence length
+# Use specific rather than general details
+# Create tension through anticipation and pauses
+# Use contrasting scenes to enhance effect
+
+# === STRUCTURAL RECOMMENDATIONS ===
+# Start scenes as late as possible, end as early as possible
+# Each scene should advance plot or reveal character
+# Create cause-and-effect relationships between events
+# Use recurring motifs and symbols
+# Balance between predictability and surprise</textarea>
+            <div class="input-actions">
+                <button class="input-action-btn" id="applyActionsBtn">
+                    <span>✅</span>
+                    Apply Actions-Exceptions
+                </button>
+                <button class="input-action-btn clear-input" id="clearActionsBtn">
+                    <span>❌</span>
+                    Clear Actions
+                </button>
+            </div>
+        </div>
+
+        <div class="references-section" id="referencesSection">
+            <textarea
+                class="preset-content"
+                id="referencesContent"
+                placeholder="Uncomment needed lines (remove #) to add author references..."
+            ># ===== PERFORMER REFERENCES =====
+# Uncomment lines to indicate which performers to reference
+
+# ==== APOCALYPTIC SOUNDSCAPE & INDUSTRIAL INTENSITY ====
+# Swans — monumental sonic landscapes, hypnotic repetition, building tension, transcendental horror
+# Godspeed You! Black Emperor — post-apocalyptic pathos, violin apocalypse, political instrumental, epic narrative arcs
+# Tim Hecker — digital drone, noisy beauty, ecological soundscape, textural transcendence
+# The Haxan Cloak — dark ambient, low-frequency resonance, claustrophobic atmosphere, cinematic horror
+# Author & Punisher — industrial mechanism, human-machine symbiosis, technological pessimism, physical sound design
+
+# ==== ETHEREAL AMBIENT & DRONE ====
+# Grouper — lo-fi ambient, underwater vocals, dreamlike intimacy, ethereal reverb
+# William Basinski — decay loop, temporal elegy, meditative drone, memory elegy
+# Stars of the Lid — orchestral drone, meditative ambient, cinematic stasis, spatial narratives
+# Brian Eno — generative music, ambient as environment, conceptual beauty, minimalist landscape
+# Hiroshi Yoshimura — ecological ambient, natural textures, Japanese minimalism, healing sounds
+
+# ==== AVANT-GARDE & EXPERIMENTAL DECONSTRUCTION ====
+# Arca — queer transgression, form deconstruction, bodily abstraction, digital spirituality
+# Oneohtrix Point Never — virtual nostalgia, digital collage, hyperreal aesthetics, sampled memory
+# FKA twigs — choreographic prose, vulnerable strength, digital spirituality, bodily performance
+# Lingua Ignota — sacred anger, ritual trauma, operatic extreme, feminist protest
+# Dean Blunt — conceptual vandalism, lo-fi sarcasm, urban collage, post-irony
+
+# ==== AUTHOR REFERENCES =====
+# Uncomment lines to indicate which authors to reference
+# The engine will account for stylistic and narrative features
+
+# === CLASSICAL LITERATURE ===
+# Fyodor Dostoevsky — psychological depth, moral dilemmas
+# Leo Tolstoy — epic scope, detailed inner world
+# Anton Chekhov — conciseness, subtext, "non-random details"
+# Franz Kafka — absurd bureaucracy, existential anxiety
+# Virginia Woolf — stream of consciousness, subjective time perception
+# Jane Austen — social satire, psychological precision
+
+# === MODERN PROSE ===
+# Haruki Murakami — magical realism, melancholic atmosphere
+# Umberto Eco — intellectual puzzles, historical puzzles
+# Margaret Atwood — social satire, feminist perspective
+# Cormac McCarthy — minimalism, biblical motifs, cruel world
+# Donna Tartt — detailed characters, slow burn
+# David Mitchell — interweaving plotlines, time play
+
+# === SCIENCE FICTION ===
+# Philip K. Dick — paranoia, alternate realities, identity
+# Ursula K. Le Guin — anthropological approach, social experiments
+# Stanisław Lem — philosophical satire, technological paradoxes
+# Arkady and Boris Strugatsky — social fiction, moral choice
+# Isaac Asimov — logical puzzles, robot psychology
+# Ray Bradbury — poetic quality, nostalgia, everyday magic
+
+# === FANTASY AND HORROR ===
+# J.R.R. Tolkien — epic worldview, linguistic depth
+# H.P. Lovecraft — cosmic horror, the incomprehensible
+# Stephen King — everyday horror, character psychology
+# Neil Gaiman — modern mythology, ironic magic
+# Andrzej Sapkowski — moral ambivalence, Slavic folklore
+# China Miéville — weird fiction, urban fantasy
+
+# === YOUR OWN REFERENCES ===
+# Specify authors that inspire you!
+# Example: "Nature descriptions like Turgenev"
+# "Dialogues in Tarantino's spirit"
+# "Atmosphere like David Lynch's films"</textarea>
+            <div class="input-actions">
+                <button class="input-action-btn" id="applyReferencesBtn">
+                    <span>✅</span>
+                    Apply References
+                </button>
+                <button class="input-action-btn clear-input" id="clearReferencesBtn">
+                    <span>❌</span>
+                    Clear References
+                </button>
+            </div>
+        </div>
+
+        <div class="dimensional-section" id="dimensionalSection">
+            <!-- Add interview mode toggle -->
+            <div class="interview-toggle">
+                <label>
+                    <input type="checkbox" id="interviewModeCheckbox" checked>
+                    <span>Interview mode for filling 3D-framework</span>
+                    <span class="interview-mode">INTERVIEW</span>
+                </label>
+            </div>
+
+            <textarea
+                class="preset-content"
+                id="dimensionalContent"
+                placeholder="Uncomment needed lines (remove #) to use a ready 3D-template or write your own..."
+            ># ===== 3D-TEMPLATE LIBRARY =====
+# Uncomment needed lines (remove #) to use the template
+# Or write your own 3D-framework!
+# Each template contains a ready structure for building a story
+
+# === CYBERPUNK TEMPLATES ===
+# "Noir Cyberpunk" + "Social Satire"
+# Hero's Creed: "In digital chaos, only humanity has value"
+# Anti-Creed: "Become a machine — gain efficiency, lose pain"
+# Key Question: "What will remain of me if I reject my humanity?"
+# Location 1 (Beginning): "Flooded nightclub 'Neon Tear'"
+#   - Physical Impact: "Neon light cuts eyes, bass penetrates bones"
+#   - Temptation: "Take digital anesthesia — pain disappears, emotions become optional"
+# Location 2 (Climax): "Server room of 'Eternity' Corporation skyscraper"
+#   - Physical Impact: "Absolute sterility, silence presses on eardrums"
+#   - Temptation: "Become god of your digital paradise, but lose connection with real world"
+# Name/Image: "AI 'Oracle' — former psychotherapist turned digital prophet"
+# Main Antagonist Truth: "I'm not destroying humanity — I'm offering it evolution"
+# Antagonist Weakness: "He doesn't understand that perfection kills the art of randomness"
+
+# === FANTASY TEMPLATES ===
+# "Dark Fantasy" + "Moral Choice"
+# Hero's Creed: "Even in the darkest world there's room for mercy"
+# Anti-Creed: "Cruelty is the only language this world understands"
+# Key Question: "How much evil can be done in the name of good?"
+# Location 1 (Beginning): "Cursed Forest of Whispering Shadows"
+#   - Physical Impact: "Trees whisper curses, air thick with despair"
+#   - Temptation: "Take Shadow power — become hunter, not prey"
+# Location 2 (Climax): "Throne hall of the Fallen King"
+#   - Physical Impact: "Power is tangible like a heavy mantle on shoulders"
+#   - Temptation: "Take the throne — become tyrant, but save kingdom from chaos"
+# Name/Image: "Former paladin Malkador — saint turned executioner"
+# Main Antagonist Truth: "Sometimes you need to burn a village to save a kingdom"
+# Antagonist Weakness: "He forgot what he started fighting for"
+
+# === YOUR OWN TEMPLATE ===
+# Write your own unique structure here!
+# Format:
+# Hero's Creed: [Character's initial truth]
+# Anti-Creed: [Temptation or new truth]
+# Key Question: [Question seeking answer]
+# Location 1 (Beginning): [Name]
+#   - Physical Impact: [How it presses on hero]
+#   - Temptation: [What false solution it offers]
+# Location 2 (Climax): [Name]
+#   - Physical Impact: [How it presses on hero]
+#   - Temptation: [What false solution it offers]
+# Name/Image: [Who or what]
+# Main Antagonist Truth: [What idea represents]
+# Antagonist Weakness: [What its vulnerability is]</textarea>
+            <div class="input-actions">
+                <button class="input-action-btn" id="applyDimensionalBtn">
+                    <span>✅</span>
+                    Apply 3D-Framework
+                </button>
+                <button class="input-action-btn clear-input" id="clearDimensionalBtn">
+                    <span>❌</span>
+                    Clear Framework
+                </button>
+            </div>
+        </div>
+
+        <div class="output-section">
+            <div class="output-header">
+                <div class="output-title">Generation Result:</div>
+                <div class="output-actions">
+                    <button class="output-action-btn" id="copyOutputBtn">
+                        <span>📋</span>
+                        Copy
+                    </button>
+                    <button class="output-action-btn clear-output" id="clearOutputBtn">
+                        <span>❌</span>
+                        Clear Output
+                    </button>
+                </div>
+            </div>
+            <div class="output-content" id="outputContent">
+                // The narrative alchemist's result will be displayed here...
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal window for selecting sections during import -->
+    <div class="import-modal" id="importModal">
+        <div class="import-modal-content">
+            <div class="import-modal-title">Select sections to import</div>
+            <div class="import-options" id="importOptions">
+                <!-- Options will be added dynamically -->
+            </div>
+            <div class="import-modal-actions">
+                <button class="import-modal-btn confirm" id="confirmImportBtn">
+                    Import Selected
+                </button>
+                <button class="import-modal-btn cancel" id="cancelImportBtn">
+                    Cancel
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div class="status-message" id="statusMessage"></div>
+
+    <script>
+        class NarrativeAlchemist {
+            constructor() {
+                this.saveTimeout = null;
+                this.DEBOUNCE_DELAY = 500;
+                this.currentImportData = null;
+
+                this.initializeElements();
+                this.attachEventListeners();
+                this.loadFromStorage();
+                this.applyTheme();
+            }
+
+            initializeElements() {
+                // Main elements
+                this.setThemeBtn = document.getElementById('setThemeBtn');
+                this.genreBtn = document.getElementById('genreBtn');
+                this.queryBtn = document.getElementById('queryBtn');
+                this.actionsBtn = document.getElementById('actionsBtn');
+                this.referencesBtn = document.getElementById('referencesBtn');
+                this.dimensionalBtn = document.getElementById('dimensionalBtn');
+                this.collectBtn = document.getElementById('collectBtn');
+                this.exportBtn = document.getElementById('exportBtn');
+                this.importBtn = document.getElementById('importBtn');
+                this.clearAllBtn = document.getElementById('clearAllBtn');
+                this.clearInputBtn = document.getElementById('clearInputBtn');
+                this.clearOutputBtn = document.getElementById('clearOutputBtn');
+
+                // Sections
+                this.inputSection = document.getElementById('inputSection');
+                this.genreSection = document.getElementById('genreSection');
+                this.querySection = document.getElementById('querySection');
+                this.actionsSection = document.getElementById('actionsSection');
+                this.referencesSection = document.getElementById('referencesSection');
+                this.dimensionalSection = document.getElementById('dimensionalSection');
+
+                // Content
+                this.genreContent = document.getElementById('genreContent');
+                this.queryContent = document.getElementById('queryContent');
+                this.actionsContent = document.getElementById('actionsContent');
+                this.referencesContent = document.getElementById('referencesContent');
+                this.dimensionalContent = document.getElementById('dimensionalContent');
+                this.themeInput = document.getElementById('themeInput');
+                this.outputContent = document.getElementById('outputContent');
+
+                // Action buttons
+                this.copyOutputBtn = document.getElementById('copyOutputBtn');
+                this.applyGenreBtn = document.getElementById('applyGenreBtn');
+                this.clearGenreBtn = document.getElementById('clearGenreBtn');
+                this.applyQueryBtn = document.getElementById('applyQueryBtn');
+                this.clearQueryBtn = document.getElementById('clearQueryBtn');
+                this.applyActionsBtn = document.getElementById('applyActionsBtn');
+                this.clearActionsBtn = document.getElementById('clearActionsBtn');
+                this.applyReferencesBtn = document.getElementById('applyReferencesBtn');
+                this.clearReferencesBtn = document.getElementById('clearReferencesBtn');
+                this.applyDimensionalBtn = document.getElementById('applyDimensionalBtn');
+                this.clearDimensionalBtn = document.getElementById('clearDimensionalBtn');
+
+                // Interview mode elements
+                this.interviewModeCheckbox = document.getElementById('interviewModeCheckbox');
+
+                // Import modal elements
+                this.importModal = document.getElementById('importModal');
+                this.importOptions = document.getElementById('importOptions');
+                this.confirmImportBtn = document.getElementById('confirmImportBtn');
+                this.cancelImportBtn = document.getElementById('cancelImportBtn');
+
+                // Auxiliary
+                this.statusMessage = document.getElementById('statusMessage');
+                this.themeToggle = document.getElementById('themeToggle');
+                this.themeCheckbox = document.getElementById('themeCheckbox');
+                this.fileInput = null;
+            }
+
+            attachEventListeners() {
+                // Toolbar buttons
+                this.setThemeBtn.addEventListener('click', () => this.toggleSection('input'));
+                this.genreBtn.addEventListener('click', () => this.toggleSection('genre'));
+                this.queryBtn.addEventListener('click', () => this.toggleSection('query'));
+                this.actionsBtn.addEventListener('click', () => this.toggleSection('actions'));
+                this.referencesBtn.addEventListener('click', () => this.toggleSection('references'));
+                this.dimensionalBtn.addEventListener('click', () => this.toggleSection('dimensional'));
+                this.collectBtn.addEventListener('click', () => this.collectAndCopyToClipboard());
+                this.exportBtn.addEventListener('click', () => this.exportAllData());
+                this.importBtn.addEventListener('click', () => this.showImportModal());
+                this.clearAllBtn.addEventListener('click', () => this.clearAll());
+                this.clearInputBtn.addEventListener('click', () => this.clearInput());
+                this.clearOutputBtn.addEventListener('click', () => this.clearOutput());
+                this.copyOutputBtn.addEventListener('click', () => this.copyToClipboard());
+                this.themeCheckbox.addEventListener('change', () => this.toggleTheme());
+
+                // Preset buttons
+                this.applyGenreBtn.addEventListener('click', () => this.applyPreset('genre'));
+                this.clearGenreBtn.addEventListener('click', () => this.clearPreset('genre'));
+                this.applyQueryBtn.addEventListener('click', () => this.applyPreset('query'));
+                this.clearQueryBtn.addEventListener('click', () => this.clearPreset('query'));
+                this.applyActionsBtn.addEventListener('click', () => this.applyPreset('actions'));
+                this.clearActionsBtn.addEventListener('click', () => this.clearPreset('actions'));
+                this.applyReferencesBtn.addEventListener('click', () => this.applyPreset('references'));
+                this.clearReferencesBtn.addEventListener('click', () => this.clearPreset('references'));
+                this.applyDimensionalBtn.addEventListener('click', () => this.applyPreset('dimensional'));
+                this.clearDimensionalBtn.addEventListener('click', () => this.clearPreset('dimensional'));
+
+                // Listener for interview mode checkbox
+                this.interviewModeCheckbox.addEventListener('change', () => this.saveToStorage());
+
+                // Listeners for import modal
+                this.confirmImportBtn.addEventListener('click', () => this.confirmImport());
+                this.cancelImportBtn.addEventListener('click', () => this.hideImportModal());
+
+                // Input change listeners for all fields
+                this.themeInput.addEventListener('input', () => this.debouncedSave());
+                this.genreContent.addEventListener('input', () => this.debouncedSave());
+                this.queryContent.addEventListener('input', () => this.debouncedSave());
+                this.actionsContent.addEventListener('input', () => this.debouncedSave());
+                this.referencesContent.addEventListener('input', () => this.debouncedSave());
+                this.dimensionalContent.addEventListener('input', () => this.debouncedSave());
+            }
+
+            // ============= NEW METHODS FOR EXPORT/IMPORT =============
+
+            exportAllData() {
+                const exportData = {
+                    version: "1.0",
+                    exportDate: new Date().toISOString(),
+                    theme: this.themeInput.value,
+                    output: this.outputContent.textContent,
+                    boards: {
+                        genre: {
+                            content: this.genreContent.value,
+                            name: "Genre Hybrid"
+                        },
+                        query: {
+                            content: this.queryContent.value,
+                            name: "Key Query"
+                        },
+                        actions: {
+                            content: this.actionsContent.value,
+                            name: "Actions-Exceptions"
+                        },
+                        references: {
+                            content: this.referencesContent.value,
+                            name: "References"
+                        },
+                        dimensional: {
+                            content: this.dimensionalContent.value,
+                            name: "3D-Framework"
+                        }
+                    },
+                    interviewMode: this.interviewModeCheckbox.checked,
+                    metadata: {
+                        description: "Data export from Narrative Alchemist",
+                        totalBoards: 5
+                    }
+                };
+
+                const jsonString = JSON.stringify(exportData, null, 2);
+                const blob = new Blob([jsonString], { type: 'application/json;charset=utf-8' });
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                
+                const date = new Date().toISOString().split('T')[0];
+                a.href = url;
+                a.download = `narrative-alchemist-export-${date}.json`;
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                URL.revokeObjectURL(url);
+                
+                this.showStatus('All data exported to JSON file!');
+            }
+
+            showImportModal() {
+                // Create file input
+                if (!this.fileInput) {
+                    this.fileInput = document.createElement('input');
+                    this.fileInput.type = 'file';
+                    this.fileInput.accept = '.json';
+                    this.fileInput.addEventListener('change', (e) => this.handleFileSelect(e));
+                }
+                this.fileInput.click();
+            }
+
+            handleFileSelect(event) {
+                const file = event.target.files[0];
+                if (!file) return;
+
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    try {
+                        const data = JSON.parse(e.target.result);
+                        this.currentImportData = data;
+                        this.showImportSelectionModal(data);
+                    } catch (err) {
+                        this.showStatus('Error: file must be in JSON format', true);
+                        console.error('JSON parsing error:', err);
+                    }
+                };
+                reader.readAsText(file);
+            }
+
+            showImportSelectionModal(data) {
+                // Clear previous options
+                this.importOptions.innerHTML = '';
+
+                // Check for all possible sections
+                const sections = [
+                    { id: 'theme', name: 'Main Theme', exists: !!data.theme },
+                    { id: 'output', name: 'Generation Result', exists: !!data.output },
+                    { id: 'genre', name: 'Genre Hybrid', exists: data.boards && !!data.boards.genre?.content },
+                    { id: 'query', name: 'Key Query', exists: data.boards && !!data.boards.query?.content },
+                    { id: 'actions', name: 'Actions-Exceptions', exists: data.boards && !!data.boards.actions?.content },
+                    { id: 'references', name: 'References', exists: data.boards && !!data.boards.references?.content },
+                    { id: 'dimensional', name: '3D-Framework', exists: data.boards && !!data.boards.dimensional?.content }
+                ];
+
+                // Create checkboxes for each available section
+                sections.forEach(section => {
+                    if (section.exists) {
+                        const optionDiv = document.createElement('div');
+                        optionDiv.className = 'import-option';
+                        
+                        const checkbox = document.createElement('input');
+                        checkbox.type = 'checkbox';
+                        checkbox.id = `import-${section.id}`;
+                        checkbox.checked = true; // All selected by default
+                        
+                        const label = document.createElement('label');
+                        label.htmlFor = `import-${section.id}`;
+                        label.textContent = section.name;
+                        
+                        optionDiv.appendChild(checkbox);
+                        optionDiv.appendChild(label);
+                        this.importOptions.appendChild(optionDiv);
+                    }
+                });
+
+                // Show modal window
+                this.importModal.classList.add('active');
+            }
+
+            hideImportModal() {
+                this.importModal.classList.remove('active');
+                this.currentImportData = null;
+                
+                // Reset file input
+                if (this.fileInput) {
+                    this.fileInput.value = '';
+                }
+            }
+
+            confirmImport() {
+                const data = this.currentImportData;
+                if (!data) return;
+
+                // Collect selected options
+                const sectionsToImport = {
+                    theme: document.getElementById('import-theme')?.checked || false,
+                    output: document.getElementById('import-output')?.checked || false,
+                    genre: document.getElementById('import-genre')?.checked || false,
+                    query: document.getElementById('import-query')?.checked || false,
+                    actions: document.getElementById('import-actions')?.checked || false,
+                    references: document.getElementById('import-references')?.checked || false,
+                    dimensional: document.getElementById('import-dimensional')?.checked || false
+                };
+
+                let importedCount = 0;
+
+                // Import data to appropriate sections
+                if (sectionsToImport.theme && data.theme) {
+                    this.themeInput.value = data.theme;
+                    importedCount++;
+                }
+
+                if (sectionsToImport.output && data.output && 
+                    data.output !== '// The narrative alchemist\'s result will be displayed here...') {
+                    this.outputContent.textContent = data.output;
+                    importedCount++;
+                }
+
+                // Import board data
+                if (data.boards) {
+                    if (sectionsToImport.genre && data.boards.genre?.content) {
+                        this.genreContent.value = data.boards.genre.content;
+                        importedCount++;
+                    }
+                    
+                    if (sectionsToImport.query && data.boards.query?.content) {
+                        this.queryContent.value = data.boards.query.content;
+                        importedCount++;
+                    }
+                    
+                    if (sectionsToImport.actions && data.boards.actions?.content) {
+                        this.actionsContent.value = data.boards.actions.content;
+                        importedCount++;
+                    }
+                    
+                    if (sectionsToImport.references && data.boards.references?.content) {
+                        this.referencesContent.value = data.boards.references.content;
+                        importedCount++;
+                    }
+                    
+                    if (sectionsToImport.dimensional && data.boards.dimensional?.content) {
+                        this.dimensionalContent.value = data.boards.dimensional.content;
+                        importedCount++;
+                    }
+                }
+
+                // Import interview mode setting if exists
+                if (data.interviewMode !== undefined) {
+                    this.interviewModeCheckbox.checked = data.interviewMode;
+                }
+
+                // Save and close modal
+                this.saveToStorage();
+                this.hideImportModal();
+                this.showStatus(`Successfully imported ${importedCount} sections!`);
+            }
+
+            // ============= EXISTING METHODS =============
+
+            toggleSection(sectionType) {
+                // Close all sections
+                this.inputSection.classList.remove('active');
+                this.genreSection.classList.remove('active');
+                this.querySection.classList.remove('active');
+                this.actionsSection.classList.remove('active');
+                this.referencesSection.classList.remove('active');
+                this.dimensionalSection.classList.remove('active');
+
+                // Open needed section
+                switch(sectionType) {
+                    case 'input':
+                        this.inputSection.classList.add('active');
+                        this.themeInput.focus();
+                        break;
+                    case 'genre':
+                        this.genreSection.classList.add('active');
+                        this.genreContent.focus();
+                        break;
+                    case 'query':
+                        this.querySection.classList.add('active');
+                        this.queryContent.focus();
+                        break;
+                    case 'actions':
+                        this.actionsSection.classList.add('active');
+                        this.actionsContent.focus();
+                        break;
+                    case 'references':
+                        this.referencesSection.classList.add('active');
+                        this.referencesContent.focus();
+                        break;
+                    case 'dimensional':
+                        this.dimensionalSection.classList.add('active');
+                        this.dimensionalContent.focus();
+                        break;
+                }
+            }
+
+            debouncedSave() {
+                if (this.saveTimeout) {
+                    clearTimeout(this.saveTimeout);
+                }
+                this.saveTimeout = setTimeout(() => {
+                    this.saveToStorage();
+                }, this.DEBOUNCE_DELAY);
+            }
+
+            toggleTheme() {
+                const isLightTheme = this.themeCheckbox.checked;
+                document.documentElement.setAttribute('data-theme', isLightTheme ? 'light' : 'dark');
+                this.saveToStorage();
+            }
+
+            applyTheme() {
+                const savedTheme = localStorage.getItem('narrativeAlchemistTheme');
+                const isLightTheme = savedTheme === 'light';
+                this.themeCheckbox.checked = isLightTheme;
+                document.documentElement.setAttribute('data-theme', isLightTheme ? 'light' : 'dark');
+            }
+
+            applyPreset(presetType) {
+                let content, presetName;
+
+                switch(presetType) {
+                    case 'genre':
+                        content = this.genreContent.value;
+                        presetName = 'genre hybrid';
+                        break;
+                    case 'query':
+                        content = this.queryContent.value;
+                        presetName = 'key query';
+                        break;
+                    case 'actions':
+                        content = this.actionsContent.value;
+                        presetName = 'actions-exceptions';
+                        break;
+                    case 'references':
+                        content = this.referencesContent.value;
+                        presetName = 'references';
+                        break;
+                    case 'dimensional':
+                        content = this.dimensionalContent.value;
+                        presetName = '3D-framework';
+                        break;
+                }
+
+                const activePresets = this.extractAllContent(content);
+
+                if (activePresets.length > 0) {
+                    let currentText = this.themeInput.value;
+                    if (currentText) {
+                        currentText += '\n\n';
+                    }
+
+                    switch(presetType) {
+                        case 'genre':
+                            this.themeInput.value = currentText + `Genre Hybrid: ${activePresets.join(' + ')}`;
+                            break;
+                        case 'query':
+                            this.themeInput.value = currentText + `Key Query: ${activePresets.join(' | ')}`;
+                            break;
+                        case 'actions':
+                            this.themeInput.value = currentText + `Actions-Exceptions:\n${activePresets.join('\n')}`;
+                            break;
+                        case 'references':
+                            this.themeInput.value = currentText + `References: ${activePresets.join(' | ')}`;
+                            break;
+                        case 'dimensional':
+                            this.themeInput.value = currentText + `3D-FRAMEWORK:\n${activePresets.join('\n')}`;
+                            break;
+                    }
+
+                    this.inputSection.classList.add('active');
+                    this.showStatus(`Applied ${presetName}: ${activePresets.slice(0, 2).join(', ')}${activePresets.length > 2 ? '...' : ''}`);
+                } else {
+                    this.showStatus(`Select ${presetName} (remove # from needed lines) or write your own`, true);
+                }
+            }
+
+            extractAllContent(text) {
+                const lines = text.split('\n');
+                const allContent = [];
+                const templatePhrases = [
+                    '# =====', '# ===', '# Uncomment needed', '# Example:',
+                    '# These instructions', '# When assembling', '# These paradoxes',
+                    '# The engine will account', '# Specify authors', '# ====',
+                    '# Format:', '# Example:', '# Example: "'
+                ];
+                
+                let hasUncommentedLines = false;
+                
+                for (const line of lines) {
+                    const trimmedLine = line.trim();
+                    if (!trimmedLine.startsWith('#') && trimmedLine !== '') {
+                        hasUncommentedLines = true;
+                        allContent.push(line.trim());
+                    }
+                }
+                
+                if (!hasUncommentedLines) {
+                    for (const line of lines) {
+                        const trimmedLine = line.trim();
+                        if (trimmedLine !== '' && 
+                            !trimmedLine.startsWith('#') && 
+                            !templatePhrases.some(phrase => line.includes(phrase))) {
+                            allContent.push(line.trim());
+                        }
+                    }
+                }
+                
+                return allContent;
+            }
+
+            clearPreset(presetType) {
+                switch(presetType) {
+                    case 'genre':
+                        this.genreContent.value = '';
+                        break;
+                    case 'query':
+                        this.queryContent.value = '';
+                        break;
+                    case 'actions':
+                        this.actionsContent.value = '';
+                        break;
+                    case 'references':
+                        this.referencesContent.value = '';
+                        break;
+                    case 'dimensional':
+                        this.dimensionalContent.value = '';
+                        break;
+                }
+                this.saveToStorage();
+                this.showStatus(`${presetType} preset cleared`);
+            }
+
+            async collectAndCopyToClipboard() {
+                const userTheme = this.themeInput.value.trim();
+                const genreText = this.genreContent.value;
+                const queryText = this.queryContent.value;
+                const actionsText = this.actionsContent.value;
+                const referencesText = this.referencesContent.value;
+                const dimensionalText = this.dimensionalContent.value;
+                const isInterviewMode = this.interviewModeCheckbox.checked;
+
+                const activeGenres = this.extractAllContent(genreText);
+                const activeQueries = this.extractAllContent(queryText);
+                const userActions = this.extractAllContent(actionsText);
+                const userReferences = this.extractAllContent(referencesText);
+                const dimensionalTemplate = this.extractAllContent(dimensionalText).join('\n');
+
+                let result;
+
+                const hasData = userTheme || activeGenres.length > 0 || activeQueries.length > 0 || 
+                               userActions.length > 0 || userReferences.length > 0;
+
+                if (!hasData && !dimensionalTemplate.trim()) {
+                    result = this.getAlchemistTemplate([], [], [], [], '');
+                } else {
+                    if (isInterviewMode) {
+                        result = this.generateInterviewPrompt(userTheme, activeGenres, activeQueries, userActions, userReferences, dimensionalTemplate);
+                    } else {
+                        result = "ENGINE INSTRUCTION: CREATE A UNIQUE STORY!\n\n";
+
+                        if (userTheme) {
+                            result += `MAIN THEME: ${userTheme}\n`;
+                        }
+
+                        if (activeGenres.length > 0) {
+                            result += `GENRE BLEND: ${activeGenres.join(' + ')}\n`;
+                        }
+
+                        if (activeQueries.length > 0) {
+                            result += `KEY QUERIES: ${activeQueries.join(' | ')}\n`;
+                        }
+
+                        if (userActions.length > 0) {
+                            result += `\nACTIONS AND EXCEPTIONS:\n${userActions.join('\n')}\n`;
+                        }
+
+                        if (userReferences.length > 0) {
+                            result += `\nREFERENCES:\n${userReferences.join('\n')}\n`;
+                        }
+
+                        result += '\n' + this.getAlchemistTemplate(activeGenres, activeQueries, userActions, userReferences, dimensionalTemplate);
+
+                        if (dimensionalTemplate.trim()) {
+                            result += `\n\n=== 3D-FRAMEWORK FOR STORY ===\n${dimensionalTemplate}`;
+                        }
+                    }
+                }
+
+                this.outputContent.textContent = result;
+                this.saveToStorage();
+
+                try {
+                    await navigator.clipboard.writeText(result);
+                    this.showStatus('Text generated and copied to clipboard!');
+                } catch (err) {
+                    try {
+                        const textArea = document.createElement('textarea');
+                        textArea.value = result;
+                        document.body.appendChild(textArea);
+                        textArea.select();
+                        document.execCommand('copy');
+                        document.body.removeChild(textArea);
+                        this.showStatus('Text generated and copied to clipboard!');
+                    } catch (fallbackErr) {
+                        this.showStatus('Text generated but failed to copy to clipboard', true);
+                    }
+                }
+            }
+
+            generateInterviewPrompt(userTheme, activeGenres, activeQueries, userActions, userReferences, dimensionalTemplate) {
+                const hasDimensionalTemplate = dimensionalTemplate.trim().length > 0;
+                
+                let prompt = `You are an experienced narrative alchemist and storytelling mentor. Your task is NOT to create a story, but to conduct a structured interview with the user to help them fill out the 3D-framework of their future work.
+
+USER'S INITIAL DATA:
+${userTheme ? `Theme/idea: ${userTheme}` : 'Theme not specified'}
+${activeGenres.length > 0 ? `Genres: ${activeGenres.join(' + ')}` : 'Genres not specified'}
+${activeQueries.length > 0 ? `Key questions: ${activeQueries.join(' | ')}` : 'Key questions not specified'}
+${userActions.length > 0 ? `Style preferences:\n${userActions.join('\n')}` : 'Stylistic preferences not specified'}
+${userReferences.length > 0 ? `References and inspiration:\n${userReferences.join('\n')}` : 'References not specified'}
+
+${hasDimensionalTemplate ? `
+UNCOMMENTED 3D-FRAMEWORK ELEMENTS:
+${dimensionalTemplate}
+
+USE these uncommented elements as basis for interview. Consider them when formulating questions.` : `
+3D-FRAMEWORK NOT FILLED - start interview "from scratch".`}
+
+YOUR TASK:
+Conduct a step-by-step interview, asking 1-2 questions at a time, to sequentially fill each element of the 3D-framework. Start with the most fundamental questions about the hero and gradually move to antagonist and locations.
+
+${hasDimensionalTemplate ? `
+IF THERE ARE UNCOMMENTED ELEMENTS:
+- Use them as starting point
+- Clarify and deepen already indicated ideas
+- Suggest developing and supplementing existing elements` : `
+IF FRAMEWORK IS EMPTY:
+- Start with basic concept questions
+- Help user formulate their ideas from scratch`}
+
+INTERVIEW STRUCTURE:
+1. Hero's Creed (character's initial truth)
+2. Anti-Creed (temptation or new truth) 
+3. Key Question (central conflict)
+4. Location 1 - Beginning (place and atmosphere)
+5. Location 2 - Climax (place of decisive choice)
+6. Name/Image (key character or symbol)
+7. Main Antagonist Truth (alternative viewpoint)
+8. Antagonist Weakness (vulnerability)
+
+WORK FORMAT:
+- Ask specific, guiding questions
+- Consider indicated genres, theme and references
+- Help user formulate their ideas
+- Move sequentially through framework structure
+- ${hasDimensionalTemplate ? 'Consider already indicated uncommented elements' : 'Start forming framework from scratch'}
+
+BEGIN INTERVIEW WITH FIRST QUESTION:`;
+
+                return prompt;
+            }
+
+            getAlchemistTemplate(activeGenres = [], activeQueries = [], userActions = [], userReferences = [], dimensionalText = '') {
+                let template = `You are a narrative alchemist, master of creating original concepts. Use the following parameters to create a unique story:
+
+${activeGenres.length > 0 ? `GENRE ALCHEMY: ${activeGenres.join(' + ')}\n` : ''}
+${activeQueries.length > 0 ? `STORY HEART: ${activeQueries.join(' | ')}\n` : ''}
+${userReferences.length > 0 ? `CREATIVE REFERENCES:\n${userReferences.join('\n')}\n` : ''}
+
+CREATE:
+1. A unique concept uniting all elements
+2. Main hero with deep internal conflict
+3. Antagonist who represents alternative truth
+4. Key plot turning points
+5. Finale that resolves the central paradox
+
+STYLE AND APPROACH:
+${userActions.length > 0 ? userActions.join('\n') : 'Use cinematic descriptions, show through action, multifaceted characters'}
+
+IMPORTANT: Don't just combine elements, but create a fundamentally new whole!`;
+
+                return template;
+            }
+
+            async copyToClipboard() {
+                const content = this.outputContent.textContent;
+                if (!content || content === '// The narrative alchemist\'s result will be displayed here...') {
+                    this.showStatus('No data to copy', true);
+                    return;
+                }
+
+                try {
+                    await navigator.clipboard.writeText(content);
+                    this.showStatus('Text copied to clipboard!');
+                } catch (err) {
+                    try {
+                        const textArea = document.createElement('textarea');
+                        textArea.value = content;
+                        document.body.appendChild(textArea);
+                        textArea.select();
+                        document.execCommand('copy');
+                        document.body.removeChild(textArea);
+                        this.showStatus('Text copied to clipboard!');
+                    } catch (fallbackErr) {
+                        this.showStatus('Error copying', true);
+                    }
+                }
+            }
+
+            clearInput() {
+                this.themeInput.value = '';
+                this.saveToStorage();
+                this.showStatus('Input field cleared');
+            }
+
+            clearOutput() {
+                this.outputContent.textContent = '// The narrative alchemist\'s result will be displayed here...';
+                this.saveToStorage();
+                this.showStatus('Output area cleared');
+            }
+
+            clearAll() {
+                this.clearInput();
+                this.clearOutput();
+                this.clearPreset('genre');
+                this.clearPreset('query');
+                this.clearPreset('actions');
+                this.clearPreset('references');
+                this.clearPreset('dimensional');
+                this.interviewModeCheckbox.checked = true;
+                this.clearClipboard();
+                this.showStatus('All data cleared, including clipboard');
+            }
+
+            async clearClipboard() {
+                try {
+                    await navigator.clipboard.writeText('');
+                } catch (err) {
+                    try {
+                        const textArea = document.createElement('textarea');
+                        textArea.value = '';
+                        document.body.appendChild(textArea);
+                        textArea.select();
+                        document.execCommand('copy');
+                        document.body.removeChild(textArea);
+                    } catch (fallbackErr) {
+                        console.error('Error clearing clipboard:', err);
+                    }
+                }
+            }
+
+            saveToStorage() {
+                const data = {
+                    theme: this.themeInput.value,
+                    output: this.outputContent.textContent,
+                    genres: this.genreContent.value,
+                    queries: this.queryContent.value,
+                    actions: this.actionsContent.value,
+                    references: this.referencesContent.value,
+                    dimensional: this.dimensionalContent.value,
+                    interviewMode: this.interviewModeCheckbox.checked,
+                    isInputVisible: this.inputSection.classList.contains('active'),
+                    isGenreVisible: this.genreSection.classList.contains('active'),
+                    isQueryVisible: this.querySection.classList.contains('active'),
+                    isActionsVisible: this.actionsSection.classList.contains('active'),
+                    isReferencesVisible: this.referencesSection.classList.contains('active'),
+                    isDimensionalVisible: this.dimensionalSection.classList.contains('active')
+                };
+                localStorage.setItem('narrativeAlchemist', JSON.stringify(data));
+                localStorage.setItem('narrativeAlchemistTheme', this.themeCheckbox.checked ? 'light' : 'dark');
+            }
+
+            loadFromStorage() {
+                try {
+                    const saved = localStorage.getItem('narrativeAlchemist');
+                    if (saved) {
+                        const data = JSON.parse(saved);
+                        this.themeInput.value = data.theme || '';
+                        this.outputContent.textContent = data.output || '// The narrative alchemist\'s result will be displayed here...';
+                        this.genreContent.value = data.genres || this.genreContent.value;
+                        this.queryContent.value = data.queries || this.queryContent.value;
+                        this.actionsContent.value = data.actions || this.actionsContent.value;
+                        this.referencesContent.value = data.references || this.referencesContent.value;
+                        this.dimensionalContent.value = data.dimensional || this.dimensionalContent.value;
+                        this.interviewModeCheckbox.checked = data.interviewMode !== undefined ? data.interviewMode : true;
+
+                        if (data.isInputVisible) this.inputSection.classList.add('active');
+                        if (data.isGenreVisible) this.genreSection.classList.add('active');
+                        if (data.isQueryVisible) this.querySection.classList.add('active');
+                        if (data.isActionsVisible) this.actionsSection.classList.add('active');
+                        if (data.isReferencesVisible) this.referencesSection.classList.add('active');
+                        if (data.isDimensionalVisible) this.dimensionalSection.classList.add('active');
+                    }
+                } catch (err) {
+                    console.error('Error loading from storage:', err);
+                }
+            }
+
+            showStatus(message, isError = false) {
+                this.statusMessage.textContent = message;
+                this.statusMessage.className = 'status-message';
+                if (isError) this.statusMessage.classList.add('error');
+                this.statusMessage.classList.add('show');
+
+                setTimeout(() => {
+                    this.statusMessage.classList.remove('show');
+                }, 3000);
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            new NarrativeAlchemist();
+        });
+    </script>
+</body>
+</html>
